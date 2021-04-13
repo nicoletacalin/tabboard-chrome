@@ -10,8 +10,14 @@
   //   "128": "path"
   // },
   "permissions": [
+    // https://stackoverflow.com/questions/16096482/what-does-http-https-and-all-urls-mean-in-the-context-of-ch
+    "<all_urls>",
     "activeTab",
-    "tabs"
+    "tabs",
+    // context menus for right click page
+    "contextMenus",
+    // saves data locally or by acc
+    "storage"
 ],
   "background": {
     "scripts": ["./js/background.js"]
