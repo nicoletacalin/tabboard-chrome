@@ -1,0 +1,20 @@
+{
+  "name": "Tabboard",
+  "description": "Shenzhen",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "icons": {
+    "96": "images/icon96.png"
+  },
+
+  "permissions": ["activeTab","tabs", "storage"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+
+
+}
