@@ -6,7 +6,6 @@ const active_tab_details = {};
 
 
 
-
 // document.addEventListener('DOMContentLoaded', function() {
 //   var checkButton = document.getElementById('check');
 //   checkButton.addEventListener('click', function() {
@@ -34,14 +33,20 @@ apiPost = (out_data) => {
   })
 }
 
-apiFetch = () =>{
-    // fetch(`http://localhost:3000`)
-    fetch(`http://www.omdbapi.com/?s=matrix&apikey=adf1f2d7`)
+apiFetch = (fetchUrl) => {
+  return new Promise ((resolve, reject) => {
+    fetch(`http://localhost:3000/${fetchUrl}`)
+    // fetch(`http://www.omdbapi.com/?s=matrix&apikey=adf1f2d7`)
     .then(response => response.json())
     .then((data)=>{
       console.log("api fetch response:", data);
+      resolve(data);
     });
+  });
+
 }
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
   // var login = document.getElementById('login-btn');
@@ -56,16 +61,31 @@ document.addEventListener('DOMContentLoaded', function() {
   //   })
   // }
 
-  var folders = document.getElementById('get-folder-btn');
+  //gets all the folders in DB
+  var getFolders = document.getElementById('get-folder-btn');
+  getFolders.addEventListener('click', ()=>{
 
-  folders.addEventListener('click', ()=>{
-    apiFetch();
+    let allFoldersData = apiFetch("folders.json");
+    allFoldersData.then(data => {
+      data.forEach((folderData) => {
+      //lists all folders from db
+        let folderOption = document.createElement("option");
+        folderOption.innerHTML = folderData.name
+        document.getElementById("select-folders").appendChild(folderOption);
+      });
+    });
+
+
   });
+
+
+
+
+
 
 
   var addTab = document.getElementById('add-tab-btn');
   addTab.addEventListener('click', function() {
-
     chrome.tabs.query({currentWindow: true}, currentTabs => {
     // data returns an array of current open tabs. URL in tab object
       console.log("current tabs", currentTabs);
@@ -77,16 +97,15 @@ document.addEventListener('DOMContentLoaded', function() {
           active_tab_details.title = tab.title;
           active_tab_details.iconUrl = tab.favIconUrl;
           apiPost(active_tab_details);
-
         }
-
       });
-
     });
-
-
-
   }, false);
+
+
+
+
+
 }, false);
 
 
