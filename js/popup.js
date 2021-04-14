@@ -34,8 +34,16 @@ apiPost = (out_data) => {
   })
 }
 
+apiFetch = () =>{
+    // fetch(`http://localhost:3000`)
+    fetch(`http://www.omdbapi.com/?s=matrix&apikey=adf1f2d7`)
+    .then(response => response.json())
+    .then((data)=>{
+      console.log("api fetch response:", data);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  var checkButton = document.getElementById('add-tab-btn');
   // var login = document.getElementById('login-btn');
 
   // if (login) {
@@ -48,7 +56,15 @@ document.addEventListener('DOMContentLoaded', function() {
   //   })
   // }
 
-  checkButton.addEventListener('click', function() {
+  var folders = document.getElementById('get-folder-btn');
+
+  folders.addEventListener('click', ()=>{
+    apiFetch();
+  });
+
+
+  var addTab = document.getElementById('add-tab-btn');
+  addTab.addEventListener('click', function() {
 
     chrome.tabs.query({currentWindow: true}, currentTabs => {
     // data returns an array of current open tabs. URL in tab object
