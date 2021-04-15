@@ -64,7 +64,12 @@ input {
   display: none;
 }
 
+.linebreak {
+  background-color: none;
+  border-color: black;
+  border-bottom-style: solid;
 
+}
 
 
 
