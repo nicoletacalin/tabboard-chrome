@@ -17,7 +17,8 @@
     // context menus for right click page
     "contextMenus",
     // saves data locally or by acc
-    "storage"
+    "storage",
+    "identity"
 ],
   "background": {
     "scripts": ["./js/background.js"]
@@ -26,6 +27,11 @@
   // "action": {
   "browser_action": {
     "default_popup": "popup.html"
+  },
+
+  "oauth2": {
+    "client_id": "971672027408-2usnplb9rd47i5h70cfngfv3de7qu9p5.apps.googleusercontent.com",
+    "scopes": [""]
   }
 
 }
