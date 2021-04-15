@@ -42,6 +42,7 @@ chrome.tabs.onUpdated.addListener(updatedTab => {
 });
 
 
+
 // chrome.tabs.onUpdated.addListener(tab => {
 //   console.log(tab); // gets the tab id and window id of tab
 //   chrome.tabs.get(tab.tabId, current_tab_info => {    //pass the id into get to get the info
