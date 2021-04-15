@@ -33,7 +33,13 @@
 
 
   <h1>Store Url</h1>
-  <button id="add-tab-btn">Save tab</button>
+
+  <div class="" id="create-title">
+    <div class="form-group">
+      <label for="create-title">Title: </label>
+      <input type="text" class="form-control" id="create-title-form">
+    </div>
+  </div>
     <!-- <h1>login</h1>
       <button id="login-btn">Test login</button> -->
 <!--     <h1>get folders</h1>
@@ -41,16 +47,17 @@
 
   <label for="folders">Choose a folder:</label>
   <select name="folders" id="select-folders">
-    <option value="unsaved">Unsaved</option>
+    <option value="1">Unsaved</option>
     <option value="new-folder" id="new-folder">➕ new folder</option>
     <option disabled>_____________</option>
-
   </select>
+  <button id="add-tab-btn">Save tab</button>
 
   <div class="hidden" id="new-folder-form">
     <div class="form-group">
       <label for="create-folder">Create a folder:</label>
       <input type="text" class="form-control" id="create-folder" placeholder="Folder name">
+      <button id="add-folder-btn">create a folder</button>
     </div>
   </div>
 

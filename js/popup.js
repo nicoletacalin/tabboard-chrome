@@ -7,13 +7,22 @@ let currentFolderId = 1;
 
 
 
-apiPost = (out_data, folder_id = 1) => {
+//generic api post
+apiPost = (out_data, item) => {
   console.log("out data deets", out_data);
-  console.log("current folder id: ", folder_id);
+  let attachUrl = "";
+  let body = {};
+  if(item === "new tab"){
+    body = { tab: out_data };
+    attachUrl = `${out_data.folder_id}/tabs`;
+  }
+  if(item === "new folder"){
+    body = { folder: out_data };
+    attachUrl = "";
+  }
 
-  const body = { tab: out_data }
   // fetch("https://httpbin.org/post", {
-  fetch(`http://localhost:3000/folders/${folder_id}/tabs?format=json`, {
+  fetch(`http://localhost:3000/folders/${attachUrl}?format=json`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -22,9 +31,10 @@ apiPost = (out_data, folder_id = 1) => {
   })
     .then(response => response.json())
     .then((data) => {
-    console.log("post return", data); // Look at local_names.default
+    console.log("tab post return", data); // Look at local_names.default
   })
 }
+
 
 apiFetch = (fetchUrl) => {
   return new Promise ((resolve, reject) => {
@@ -36,8 +46,8 @@ apiFetch = (fetchUrl) => {
       resolve(data);
     });
   });
-
 }
+
 
 
 // get folders when popup is clicked
@@ -50,9 +60,21 @@ allFoldersData.then(data => {
     folderOption.innerHTML = folderData.name
 
     folderOption.value = folderData.id;
-    document.getElementById("select-folders").appendChild(folderOption);
+    if (folderData.id !== 1) document.getElementById("select-folders").appendChild(folderOption);
   });
 });
+
+console.log("giving it a name :)");
+chrome.tabs.query({currentWindow: true}, currentTabs => {
+  currentTabs.forEach((tab) => {
+    if(tab.active === true){
+      document.getElementById('create-title-form').setAttribute("value", tab.title);
+    }
+  });
+
+
+});
+
 
 
 
@@ -86,11 +108,27 @@ document.addEventListener('DOMContentLoaded', function() {
     currentFolderId = folder.target.value;
     console.log("current folder id: ", currentFolderId);
 
+  });
 
+  const folderCreate = document.getElementById('add-folder-btn');
+  folderCreate.addEventListener('click', (folder)=>{
+    const newFolder = {};
+    newFolder.name = document.getElementById('create-folder').value;
+    newFolder.user_id = 4;
+    apiPost(newFolder, "new folder");
+    console.log("folder created");
 
   });
 
 
+
+
+
+
+
+
+
+  // save the tab to database
   const addTab = document.getElementById('add-tab-btn');
   addTab.addEventListener('click', function() {
     chrome.tabs.query({currentWindow: true}, currentTabs => {
@@ -102,17 +140,19 @@ document.addEventListener('DOMContentLoaded', function() {
       currentTabs.forEach((tab) => {
         if(tab.active === true)
         {
+
+
+          active_tab_details.title = document.getElementById('create-title-form').value;
           active_tab_details.url = tab.url;
-          active_tab_details.title = tab.title;
           active_tab_details.iconUrl = tab.favIconUrl;
-          apiPost(active_tab_details, currentFolderId);
+          active_tab_details.folder_id = currentFolderId
+          apiPost(active_tab_details, "new tab");
         }
       });
     });
   }, false);
 
 
-  // listens if  new folder is clicked
 
 
 
