@@ -1,65 +1,62 @@
-
 <html lang="en">
-<head>
-  <title>Tabboard</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
-  <script src="js/popup.js"></script>
+  <head>
+    <title>Tabboard</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/popup.js"></script>
 
-  <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-</head>
+     <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  </head>
 
-<body>
-  <div class="logo">
-    <img src="images/icon96.png">
-  </div>
-  <div class="container hidden">
-    <form>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-      </div>
-    </form>
-    <div class="container-bt">
-      <button type="submit" class="sign-up-btn">Sign Up</button>
+  <body>
+    <div class="logo">
+        <img src="images/icon96.png">
     </div>
-  </div>
+   <!--  <div class="container hidden"> -->
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+      </form>
+      <div class="container-bt">
+<!--         <button type="submit" class="sign-up-btn">Sign In with Google</button> -->
+        <div id='sign-in'>Sign In</div>
+        <button id="test-btn">User Status</button>
+      </div>
+      <script src="js/popup-script.js"></script>
+<!--     </div> -->
 
-
-
-  <h1>Store Url</h1>
-
-  <div class="" id="create-title">
-    <div class="form-group">
-      <label for="create-title">Title: </label>
-      <input type="text" class="form-control" id="create-title-form">
+<h1>Store Url</h1>
+  <div class=“” id=“create-title”>
+    <div class=“form-group”>
+      <label for=“create-title”>Title: </label>
+      <input type=“text” class=“form-control” id=“create-title-form”>
     </div>
   </div>
     <!-- <h1>login</h1>
-      <button id="login-btn">Test login</button> -->
+      <button id=“login-btn”>Test login</button> -->
 <!--     <h1>get folders</h1>
-  <button id="get-folder-btn">Get folder</button> -->
-
-  <label for="folders">Choose a folder:</label>
-  <select name="folders" id="select-folders">
-    <option value="1">Unsaved</option>
-    <option value="new-folder" id="new-folder">➕ new folder</option>
+  <button id=“get-folder-btn”>Get folder</button> -->
+  <label for=“folders”>Choose a folder:</label>
+  <select name=“folders” id=“select-folders”>
+    <option value=“1”>Unsaved</option>
+    <option value=“new-folder” id=“new-folder”>:signe_d'addition_trait_plein: new folder</option>
     <option disabled>_____________</option>
   </select>
-
-  <div class="hidden" id="new-folder-form">
-    <div class="form-group">
-      <label for="create-folder">Create a folder:</label>
-      <input type="text" class="form-control" id="create-folder" placeholder="Folder name">
-      <button id="add-folder-btn" class="hidden">create a folder</button>
+  <div class=“hidden” id=“new-folder-form”>
+    <div class=“form-group”>
+      <label for=“create-folder”>Create a folder:</label>
+      <input type=“text” class=“form-control” id=“create-folder” placeholder=“Folder name”>
+      <button id=“add-folder-btn” class=“hidden”>create a folder</button>
     </div>
   </div>
-  <button id="add-tab-btn">Save tab</button>
+  <button id=“add-tab-btn”>Save tab</button>
 
 </body>
 </html>
