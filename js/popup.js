@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // get folders when popup is clicked
   getFolders();
-  generateTitleForm();
+  generateTitleForm(); 
 
 
   const folderSelect = document.getElementById('select-folders');
@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 }, false);
+
 
 
 
