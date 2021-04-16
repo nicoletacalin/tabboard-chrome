@@ -1,21 +1,19 @@
-
-
 body {
   width: 423px;
   height: 317px;
-  background: #FFFFFF;
-  border: 1px solid #C4C4C4;
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
   box-sizing: border-box;
-  border-radius: 5px;
   padding: 0;
 }
 
-
 .logo {
   height: 60px;
-  background: #DF4B14;
-  border-radius: 5px;
+  background: #df4b14;
   width: 100%;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
 }
 
 img {
@@ -32,30 +30,27 @@ label {
   color: #000000;
   padding-top: 20px;
   padding-bottom: 10px;
-
 }
 
 input {
   width: 376px;
   height: 41px;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 5px;
 }
-
 
 .container-bt {
   display: flex;
   justify-content: center;
   font-family: 'Roboto', sans-serif;
-
 }
 
 .sign-up-btn {
-  background-color: #DF4B14;
+  background-color: #df4b14;
   border-radius: 5px;
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 6px 12px;
   border: none;
 }
@@ -68,10 +63,4 @@ input {
   background-color: none;
   border-color: black;
   border-bottom-style: solid;
-
 }
-
-
-
-
-
