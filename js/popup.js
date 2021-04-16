@@ -6,13 +6,7 @@ const active_tab_details = {};
 let currentFolderId = 1;
 // flags to check status
 let creatingFolder = false;
-
-
-
-
-
-
-
+let isSuccess = false;
 
 
 
@@ -60,21 +54,36 @@ document.addEventListener('DOMContentLoaded', function() {
         newFolder.user_id = 4;
         const confirmedNewFolder = apiPost(newFolder, "new folder");
 
+        console.log("new folder?", confirmedNewFolder);
+
         // allFoldersData = apiFetch("folders.json");
         confirmedNewFolder.then(data=>{
+          console.log("data:", data);
           // call the addNewTab() function
           const newFolderId = data.folder.id
           console.log('inside confirmed new folder,new id:', newFolderId)
-          addNewTab(currentTabs, newFolderId);
+          isSuccess = addNewTab(currentTabs, newFolderId);
+          document.getElementById("success-popup").removeAttribute("class");
+
         });
       }else{
         // add tab to folders
         console.log('create tab on existing folder')
-        addNewTab(currentTabs, currentFolderId);
+        isSuccess = addNewTab(currentTabs, currentFolderId);
+        document.getElementById("success-popup").removeAttribute("class");
       }
 
     });
   }, false);
+  // end of addtab event listener
+
+
+  // hides sucessful popup
+  const closePopupBtn = document.getElementById('close-sucess-popup');
+  closePopupBtn.addEventListener("click", ()=>{
+    isSuccess = false;
+    document.getElementById("success-popup").setAttribute("class", "hidden");
+  });
 
 
 
@@ -95,6 +104,7 @@ const addNewTab = (currentTabs, currentFolderId) => {
       apiPost(active_tab_details, "new tab");
     }
   });
+  return true;
 }
 
 //generic api post
@@ -185,4 +195,6 @@ generateTitleForm = () =>{
   });
 }
 
+showPopup = () => {
 
+}
