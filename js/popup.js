@@ -27,8 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // }
 
   // get folders when popup is clicked
+
   getFolders();
-  generateTitleForm(); 
+  generateTitleForm();
 
 
   const folderSelect = document.getElementById('select-folders');
@@ -39,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   // save the tab to database
-  const addTab = document.getElementById('add-tab-btn');
+
+  // const addTab = document.getElementById('add-btn');
+  const addTab = document.querySelector('.test-btn');
+  console.log('addTab', addTab)
   addTab.addEventListener('click', function() {
     chrome.tabs.query({currentWindow: true}, currentTabs => {
 
@@ -79,7 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   // hides sucessful popup
-  const closePopupBtn = document.getElementById('close-sucess-popup');
+  const closePopupBtn = document.getElementById('close-popup');
+  // const closePopupBtn = document.querySelector('close-popup');
   closePopupBtn.addEventListener("click", ()=>{
     isSuccess = false;
     document.getElementById("success-popup").setAttribute("class", "hidden");
