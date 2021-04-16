@@ -1,20 +1,39 @@
 {
-  "name": "Tabboard",
-  "description": "Shenzhen",
-  "version": "1.0",
-  "manifest_version": 3,
+  "key": "pgcjijkbmmoiafidajnphocaiebjpdfj",
+  // "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA/NjTReH/5Je78OvReOKEDlAyL6xfa1/jRo99YCj4AbrbYG6NondFAV3L53jpl0h/r2cFfsQhgPo+V9J5LZKuUkhUyCXPfJ3maBoYd5juHdqtUrr6inJ0rG7VtgRsKXU7PUTuzXQUF9MWBFM2a6tXQ+lzbZm0evKCvqvqEIfM8G0AX0GegCk9jH10bh5c03tPUTHwTJqr8SsC1LdBgL3N6cbMWQs9ddg0kDww1sjWV8s7TSnOzMyeZ5dhEEy3bKU2KDoaz/tJ2UQTdmaz4fzqBgZk1yQv4aT41Dh+VKOiINgphMjpOePkw39u552X97X3FHwpaWQDNdI0XVKLVvaT6wIDAQAB",
+  "name": "Tabboard",          //45 char max
+  "description": "Clear Space - Clear Mind",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  // "icons": {
+  //   "16": "path",
+  //   "32": "path",
+  //   "48": "path",
+  //   "128": "path"
+  // },
+  "permissions": [
+    // https://stackoverflow.com/questions/16096482/what-does-http-https-and-all-urls-mean-in-the-context-of-ch
+    "<all_urls>",
+    "activeTab",
+    "tabs",
+    // context menus for right click page
+    "contextMenus",
+    // saves data locally or by acc
+    "storage",
+    "identity"
+],
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["./js/background.js"]
   },
-
-  "icons": {
-    "96": "images/icon96.png"
-  },
-
-  "permissions": ["activeTab","tabs", "storage"],
-  "action": {
+  "options_page": "./options.html",
+  // "action": {
+  "browser_action": {
     "default_popup": "popup.html"
-  }
+  },
 
+  "oauth2": {
+    "client_id": "971672027408-v2fhakhcl32m5qg9v6mhs5hmnprpp43j.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+  }
 
 }

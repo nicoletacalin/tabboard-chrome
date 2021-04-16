@@ -1,21 +1,24 @@
-
-
 body {
   width: 423px;
   height: 317px;
-  background: #FFFFFF;
-  border: 1px solid #C4C4C4;
+  background: #ffffff;
+  border: 1px solid #c4c4c4;
   box-sizing: border-box;
-  border-radius: 5px;
   padding: 0;
 }
 
 
+a {
+  text-decoration-color: none;
+}
+
 .logo {
   height: 60px;
-  background: #DF4B14;
-  border-radius: 5px;
+  background: #df4b14;
   width: 100%;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
 }
 
 img {
@@ -32,39 +35,77 @@ label {
   color: #000000;
   padding-top: 20px;
   padding-bottom: 10px;
-
 }
 
 input {
   width: 376px;
   height: 41px;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   box-sizing: border-box;
   border-radius: 5px;
 }
-
 
 .container-bt {
   display: flex;
   justify-content: center;
   font-family: 'Roboto', sans-serif;
-
 }
 
 .sign-up-btn {
-  background-color: #DF4B14;
+  background-color: #df4b14;
   border-radius: 5px;
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 6px 12px;
   border: none;
 }
 
+.hidden {
+  display: none;
+}
 
+.linebreak {
+  background-color: none;
+  border-color: black;
+  border-bottom-style: solid;
+}
 
+#success-popup {
+  height: 85%;
+  width: 80%;
+  position: absolute;
+  left: 50%;
+  margin-left: -40%;
+  top: 50%;
+  margin-top: -30%;
+  background-color: rgba(200, 200, 200, 0.9);
+  z-index: 100;
+  border-radius: 5px;
+}
 
+.check-mark-circle{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 50px auto 20px auto;
+  background-color: #DF4B14;
+}
 
+.popup-container{
+  display: flex;
+  flex-direction: column;
+}
 
+.popup-btn{
+  background-color: #DF4B14;
+  color: #DF4B14;
+}
 
-
-
+.popup-btn a{
+  text-decoration: none;
+  color: #DF4B14;
+}
+.tick {
+  margin-left: 30px;
+  margin-top: 30px;
+}
