@@ -8,7 +8,7 @@ const CLIENT_ID = encodeURIComponent('971672027408-29haths710vq9bc08h76d34tk86ij
 const RESPONSE_TYPE = encodeURIComponent('id_token');
 const REDIRECT_URI = encodeURIComponent('https://bhkodjoknpgpkejmojjopomkndbcmhcf.chromiumapp.org');
 const STATE = encodeURIComponent('jfkls3n');
-const SCOPE = encodeURIComponent('openid');
+const SCOPE = encodeURIComponent('email');
 const PROMPT = encodeURIComponent('consent');
 
 function create_oauth2_url(){
@@ -34,11 +34,28 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           url: create_oauth2_url(),
           interactive: true
         }, function (redirect_url) {
-          // console.log(redirect_url);
           let id_token = redirect_url.substring(redirect_url.indexOf('id_token=') + 9);
           id_token = id_token.substring(0, id_token.indexOf('&'));
 
           const user_info = KJUR.jws.JWS.readSafeJSONString(b64utoutf8(id_token.split(".")[1]));
+          console.log('USER INFO =', user_info)
+
+          let body = { user: user_info };
+          fetch(`http://localhost:3000/users/auth/google_oauth2`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+          })
+            .then(response => {
+              console.log(response)
+              response.json()
+            })
+            .then((data) => {
+              console.log("post return", data); // Look at local_names.default
+              resolve(data);
+            });
 
           if ((user_info.iss === 'https://accounts.google.com' || user_signed_in.iss === 'accounts.google.com')
             && user_info.aud ===  CLIENT_ID) {
