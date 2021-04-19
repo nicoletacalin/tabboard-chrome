@@ -42,22 +42,29 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
           if ((user_info.iss === 'https://accounts.google.com' || user_signed_in.iss === 'accounts.google.com')
             && user_info.aud ===  CLIENT_ID) {
-              chrome.browser_action.setPopup({'./popup.html'})
-              user_signed_in = true;
-            sendResponse('success');
 
+              chrome.browserAction.setPopup({ popup: './popup.html'}, function (){
+                user_signed_in = true;
+                sendResponse('success');
+              });
+          } else {
+            console.log(" Couldn't authenticate");
           }
-          console.log(user_info);
+          // console.log(user_info);
 
         });
 
         return true;
     }
-  } else if (resquest.message === 'logout'){
-
+  } else if (request.message === 'logout'){
+      chrome.browserAction.setPopup({ popup: './popup-sign-in.html'}, function (){
+      user_signed_in = false;
+      sendResponse('success');
+  });
+    return true;
   }
-  else if (resquest.message === 'isUserSignedIn'){
-
+    else if (request.message === 'isUserSignedIn'){
+      sendResponse(is_user_signed_in());
   }
 
 });
