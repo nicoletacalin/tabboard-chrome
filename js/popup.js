@@ -9,11 +9,21 @@
   // popup.js
     console.log("popup.js running");
 
+    let token, email;
+
+    chrome.storage.local.get(['token', 'email'], function(result) {
+      token = result.token
+      email = result.email
+      console.log({token});
+      console.log({email});
+    });
+
   // variables
     const active_tab_details = {};
     // Defaults to 1, needs to be changed to unsaved tabs
     let currentFolderId = 1;
     const defaultFolderId = 1;
+    // let user_id = user_id
     // CHANGE THE ABOVE IDs
 
   // flags for status checks
@@ -23,7 +33,7 @@
 
 
   //Debug variables
-    let isSuccess = false;
+    // let isSuccess = false;
 // end of INITIALIZATIONS
 
 // ----------------------- main -------------------------
@@ -46,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // const addTab = document.getElementById('add-tab-btn');
   const addTab = document.querySelector('.add-tab-btn');
   addTab.addEventListener('click', function() {
+
     chrome.tabs.query({currentWindow: true}, currentTabs => {
 
       // currentTabs is an array of current open tabs. URL is in tab object
@@ -61,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         newFolder.name = document.getElementById('create-folder').value;
 
         // ------------- needs to obtain current user id ---------------
-                          newFolder.user_id = 6; // currently hard coded
+                          // newFolder.user_id = 6; // currently hard coded
         // -------------------------------------------------------------
 
         const confirmedNewFolder = apiPost(newFolder, "new folder");
@@ -85,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }else{
         // add tab to folders, show success popup on success
         console.log('create tab on existing folder')
+
         isSuccess = addNewTab(currentTabs, currentFolderId);
         document.getElementById("success-popup").removeAttribute("class");
       }
@@ -127,7 +139,7 @@ const saveAllTabs = () => {
       const singleTab = {};
       singleTab.url = tab.url;
       singleTab.title = tab.title;
-      singleTab.iconUrl = tab.favIconUrl;
+      singleTab.icon = tab.favIconUrl;
       singleTab.folder_id = defaultFolderId;
       allTabsArray.push(singleTab);
     });
@@ -152,7 +164,9 @@ const apiPostAllTabs = (out_data, folder_id = 1) => {
     fetch(`http://localhost:3000/folders/${folder_id}/saveall?format=json`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-User-Email': email,
+        'X-User-Token': token
       },
       body: JSON.stringify(body)
     })
@@ -172,7 +186,7 @@ const addNewTab = (currentTabs, currentFolderId) => {
     if(tab.active === true){
       active_tab_details.title = document.getElementById('create-title-form').value;
       active_tab_details.url = tab.url;
-      active_tab_details.iconUrl = tab.favIconUrl;
+      active_tab_details.icon = tab.favIconUrl;
       active_tab_details.folder_id = currentFolderId
       apiPost(active_tab_details, "new tab");
     }
@@ -202,7 +216,9 @@ apiPost = (out_data, item) => {
     fetch(`http://localhost:3000/folders/${attachUrl}?format=json`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-User-Email': email,
+        'X-User-Token': token
       },
       body: JSON.stringify(body)
     })
@@ -222,16 +238,30 @@ apiPost = (out_data, item) => {
 getFolders=()=>{
   console.log("getting folders");
   let allFoldersData = apiFetch("folders.json");
+  const folderWrapper = document.getElementById("select-folders")
+  let optionsStr = ''
   allFoldersData.then(data => {
-    data.forEach((folderData) => {
+    console.log(123456, data)
+    data.forEach((folderData, index) => {
     //lists all folders from db
-      let folderOption = document.createElement("option");
-      folderOption.innerHTML = folderData.name
+      // let folderOption = document.createElement("option");
+      // folderOption.innerHTML = folderData.name
 
-      folderOption.value = folderData.id;
+      // folderOption.value = folderData.id;
       // do not display the default folder
-      if (folderData.id !== 1) document.getElementById("select-folders").appendChild(folderOption);
+      // if (folderData.id !== 1) document.getElementById("select-folders").appendChild(folderOption);
+
+      // Aggy: simplify code by appending all the options to a string
+      if (index === 0) {
+        currentFolderId = folderData.id
+        console.log({currentFolderId})
+        optionsStr += `<option selected value='${folderData.id}'>${folderData.name}</option>`
+      } else {
+        optionsStr += `<option value='${folderData.id}'>${folderData.name}</option>`
+      }
     });
+    console.log({optionsStr})
+    folderWrapper.insertAdjacentHTML('beforeend', optionsStr)
   });
 }
 
@@ -239,7 +269,12 @@ getFolders=()=>{
 // function is only called by getFolders()
 apiFetch = (fetchUrl) => {
   return new Promise ((resolve, reject) => {
-    fetch(`http://localhost:3000/${fetchUrl}`)
+    fetch(`http://localhost:3000/${fetchUrl}`, {
+      headers: {
+        'X-User-Email': email,
+        'X-User-Token': token
+      }
+    })
     // fetch(`http://www.omdbapi.com/?s=matrix&apikey=adf1f2d7`)
     .then(response => response.json())
     .then((data)=>{

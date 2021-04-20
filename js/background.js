@@ -55,12 +55,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             })
             .then((data)=>{
               console.log("api fetch response:", data);
-              user_id = data.id
-              chrome.storage.local.set({user_id});
-               console.log('USER_ID IS:' + user_id)
-              chrome.storage.local.get(['user_id'], function(result) {
-                console.log('USER_ID GET IS ' + result.user_id);
-                });
+              // user_id = data.id
+              // chrome.storage.local.set({user_id});
+              chrome.storage.local.set({token: data.token, email: data.user.email});
+               // console.log('saved token:' + user_id)
+              // chrome.storage.local.get(['user_id'], function(result) {
+              //   console.log('USER_ID GET IS ' + result.user_id);
+              //   });
             });
 
           if ((user_info.iss === 'https://accounts.google.com' || user_signed_in.iss === 'accounts.google.com')
