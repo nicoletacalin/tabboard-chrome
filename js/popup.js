@@ -3,21 +3,18 @@ console.log("popup.js running");
 
 // variables
 const active_tab_details = {};
-let currentFolderId = 1;
+let currentFolderId = 21;
 // flags to check status
 let creatingFolder = false;
 let isSuccess = false;
-
-
-
-
-
+let user_id = "";
 
 document.addEventListener('DOMContentLoaded', function() {
 
   // get folders when popup is clicked
   getFolders();
   generateTitleForm();
+
 
   const folderSelect = document.getElementById('select-folders');
   folderSelect.addEventListener('change', (folder)=>{
@@ -34,12 +31,12 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("current tabs", currentTabs);
       // adds folder
       if(creatingFolder){
-        // console.log("creating folder: ", creatingFolder);
+        console.log("creating folder: ", creatingFolder);
         const newFolder = {};
         newFolder.name = document.getElementById('create-folder').value;
-
         //-------------REQUIRE GOOGLE USER ID--------------
-                      newFolder.user_id = 4;
+                      newFolder.user_id = 1;
+                      console.log(newFolder.user_id)
         //-------------------------------------------------
 
         const confirmedNewFolder = apiPost(newFolder, "new folder");
@@ -100,10 +97,10 @@ const addNewTab = (currentTabs, currentFolderId) => {
 //generic api post
 apiPost = (out_data, item) => {
   return new Promise ((resolve, reject) => {
-    // console.log("out data deets", out_data);
+    console.log("out data deets", out_data);
     let attachUrl = "";
     let body = {};
-
+    console.log("body", body)
     // create tabs or folders?
     if(item === "new tab"){
       body = { tab: out_data };
@@ -122,7 +119,9 @@ apiPost = (out_data, item) => {
       },
       body: JSON.stringify(body)
     })
-      .then(response => response.json())
+      .then(response => {response.json();
+        console.log(response);
+      })
       .then((data) => {
         console.log("post return", data); // Look at local_names.default
         resolve(data);
@@ -188,3 +187,5 @@ generateTitleForm = () =>{
 showPopup = () => {
 
 }
+
+
