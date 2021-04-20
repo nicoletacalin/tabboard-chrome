@@ -21,6 +21,7 @@
   // flags for status checks
     let creatingFolder = false;
 
+
   //Debug variables
     let isSuccess = false;
 // end of INITIALIZATIONS
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   getFolders();                 // get folders from db when popup is clicked
   generateTitleForm();          // Auto fills title of form to current titile
+
 
   // When "+new folder" is selected, show the form to create a folder
   const folderSelect = document.getElementById('select-folders');
@@ -52,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // If "+new folder" is selected and submitted, POST new folder
       // Then POST tab to new folder
       // Else POST tab to selected folder
+
       if(creatingFolder){
-        console.log("creating folder: ", creatingFolder);
+        // console.log("creating folder: ", creatingFolder);
         const newFolder = {};
         newFolder.name = document.getElementById('create-folder').value;
 
@@ -72,13 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // into created folder
         // Display Success popup if successful
         confirmedNewFolder.then(data=>{
-          console.log("data:", data);
           // call the addNewTab() function
+          console.log("data:", data);
           const newFolderId = data.folder.id
           console.log('inside confirmed new folder,new id:', newFolderId)
           isSuccess = addNewTab(currentTabs, newFolderId);
           document.getElementById("success-popup").removeAttribute("class");
-
         });
       }else{
         // add tab to folders, show success popup on success
@@ -89,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, false);
   // ------------- end of: addTab event listener----------------
+
 
 
   // hides the popup "sucessful popup" on btn click
