@@ -3,6 +3,7 @@ const page_data = {};
 let all_tabs = [];
 let current_tab_id = 0;
 let user_signed_in = false;
+let user_id = "";
 
 const CLIENT_ID = encodeURIComponent('971672027408-29haths710vq9bc08h76d34tk86ija2b.apps.googleusercontent.com');
 const RESPONSE_TYPE = encodeURIComponent('id_token');
@@ -40,8 +41,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           const user_info = KJUR.jws.JWS.readSafeJSONString(b64utoutf8(id_token.split(".")[1]));
           console.log('USER INFO =', user_info)
 
-          let body = { user: user_info };
-          fetch(`http://localhost:3000/users/auth/google_oauth2`, {
+          let body = {user: user_info};
+          fetch(`http://localhost:3000/users/login_from_ext?format=json`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -50,11 +51,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           })
             .then(response => {
               console.log(response)
-              response.json()
+              return response.json()
             })
-            .then((data) => {
-              console.log("post return", data); // Look at local_names.default
-              resolve(data);
+            .then((data)=>{
+              console.log("api fetch response:", data);
+              // user_id = data.id
+              // chrome.storage.local.set({user_id});
+              chrome.storage.local.set({token: data.token, email: data.user.email});
+               // console.log('saved token:' + user_id)
+              // chrome.storage.local.get(['user_id'], function(result) {
+              //   console.log('USER_ID GET IS ' + result.user_id);
+              //   });
             });
 
           if ((user_info.iss === 'https://accounts.google.com' || user_signed_in.iss === 'accounts.google.com')
@@ -67,7 +74,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           } else {
             console.log(" Couldn't authenticate");
           }
-          // console.log(user_info);
 
         });
 
