@@ -1,52 +1,79 @@
-// popup.js
-console.log("popup.js running");
+// Chrome Extension for TABBOARD
+// Devs: Xiway, Nico, Desmond, Marshal, Kevin
+// start date: 12/4/21
 
-// variables
-const active_tab_details = {};
-let currentFolderId = 1;
-// flags to check status
-let creatingFolder = false;
-let isSuccess = false;
+// Tabboard - A productive tab management
+// Chrome extension
 
 
 
+// start of INITIALIZATIONS
+  // popup.js
+    console.log("popup.js running");
+
+  // variables
+    const active_tab_details = {};
+    // Defaults to 1, needs to be changed to unsaved tabs
+    let currentFolderId = 1;
+    const defaultFolderId = 1;
+    // CHANGE THE ABOVE IDs
+
+  // flags for status checks
+    let creatingFolder = false;
 
 
+  //Debug variables
+    let isSuccess = false;
+// end of INITIALIZATIONS
 
+// ----------------------- main -------------------------
+// Execute tasks once the extension popup is loaded
 document.addEventListener('DOMContentLoaded', function() {
 
-  // get folders when popup is clicked
-  getFolders();
-  generateTitleForm();
+  getFolders();                 // get folders from db when popup is clicked
+  generateTitleForm();          // Auto fills title of form to current titile
 
+
+  // When "+new folder" is selected, show the form to create a folder
   const folderSelect = document.getElementById('select-folders');
   folderSelect.addEventListener('change', (folder)=>{
     showNewFolderForm(folder);
   });
 
+  // ----------- start of: addTab event listener----------------
   // save the tab to database
-  // const addTab = document.getElementById('add-btn');
-  const addTab = document.querySelector('.test-btn');   // unknown error. ID: add-btn not working
-  console.log('addTab', addTab)
+  // getElementById can be buggy. switched to query selector
+  // const addTab = document.getElementById('add-tab-btn');
+  const addTab = document.querySelector('.add-tab-btn');
   addTab.addEventListener('click', function() {
     chrome.tabs.query({currentWindow: true}, currentTabs => {
-      // data returns an array of current open tabs. URL in tab object
+
+      // currentTabs is an array of current open tabs. URL is in tab object
       console.log("current tabs", currentTabs);
-      // adds folder
+
+      // If "+new folder" is selected and submitted, POST new folder
+      // Then POST tab to new folder
+      // Else POST tab to selected folder
+
       if(creatingFolder){
         // console.log("creating folder: ", creatingFolder);
         const newFolder = {};
         newFolder.name = document.getElementById('create-folder').value;
 
-        //-------------REQUIRE GOOGLE USER ID--------------
-                      newFolder.user_id = 4;
-        //-------------------------------------------------
+        // ------------- needs to obtain current user id ---------------
+                          newFolder.user_id = 6; // currently hard coded
+        // -------------------------------------------------------------
 
         const confirmedNewFolder = apiPost(newFolder, "new folder");
 
-        console.log("new folder?", confirmedNewFolder);
-
+        // --------------------DEBUG--------------------
+        // console.log("new folder?", confirmedNewFolder);
         // allFoldersData = apiFetch("folders.json");
+        // ---------------------------------------------
+
+        // after new folder is created then POST new tab
+        // into created folder
+        // Display Success popup if successful
         confirmedNewFolder.then(data=>{
           // call the addNewTab() function
           console.log("data:", data);
@@ -56,32 +83,88 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("success-popup").removeAttribute("class");
         });
       }else{
-        // add tab to folders
+        // add tab to folders, show success popup on success
         console.log('create tab on existing folder')
         isSuccess = addNewTab(currentTabs, currentFolderId);
         document.getElementById("success-popup").removeAttribute("class");
       }
-
     });
   }, false);
-  // end of addtab event listener
+  // ------------- end of: addTab event listener----------------
 
 
-  // hides sucessful popup
-  const closePopupBtn = document.getElementById('close-popup');
+
+  // hides the popup "sucessful popup" on btn click
+  const closePopupBtn = document.getElementById('close-sucess-popup');
+  // const closePopupBtn = document.querySelector('.close-sucess-popup');
   closePopupBtn.addEventListener("click", ()=>{
-    isSuccess = false;
+    isSuccess = false;    // for debug
     document.getElementById("success-popup").setAttribute("class", "hidden");
   });
 
 
-
+  // button saves ALL tabs to unsavded folder
+  // Saved tabs only got to the default unsaved tabs folder
+  const masterSaveBtn = document.getElementById("master-save-tabs-btn");
+  masterSaveBtn.addEventListener('click', ()=>{
+    saveAllTabs();
+  });
 
 }, false);
+// --------------------end of main ------------------------
 
 
 
+// ---------------------- functions -----------------------
+// collects all the tabs in window and Formats the data for POST
+// calls apiPostAllTabs() for POST
+const saveAllTabs = () => {
+  let allTabsArray = [];
 
+  chrome.tabs.query({currentWindow: true}, currentTabs => {
+    console.log("current tabs: ", currentTabs);
+    currentTabs.forEach((tab) => {
+      const singleTab = {};
+      singleTab.url = tab.url;
+      singleTab.title = tab.title;
+      singleTab.iconUrl = tab.favIconUrl;
+      singleTab.folder_id = defaultFolderId;
+      allTabsArray.push(singleTab);
+    });
+    apiPostAllTabs(allTabsArray);
+  });
+  // flush array to avoid stacking data
+  allTabsArray = [];
+}
+
+// Receives formatted data and POST to a non-rails-default route
+// saveall. Saved tabs only got to the default unsaved tabs folder
+// function is only called by saveAllTabs()
+const apiPostAllTabs = (out_data, folder_id = 1) => {
+  return new Promise ((resolve, reject) => {
+    // console.log("out data deets", out_data);
+    let attachUrl = "";
+    let body = {};
+    // create tabs or folders?
+    body = { tabs: {content: out_data} };
+    console.log("body", body);
+    // fetch("https://httpbin.org/post", {
+    fetch(`http://localhost:3000/folders/${folder_id}/saveall?format=json`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+      .then(response => response.json())
+      .then((data) => {
+        console.log("post return", data); // Look at local_names.default
+        resolve(data);
+      });
+  });
+}
+
+// function formats current tab for posts then calls apiPost
 const addNewTab = (currentTabs, currentFolderId) => {
   console.log('inside addNewTab function')
   const active_tab_details = {};
@@ -97,7 +180,8 @@ const addNewTab = (currentTabs, currentFolderId) => {
   return true;
 }
 
-//generic api post
+
+// posts either a creation of a new tab or a new folder
 apiPost = (out_data, item) => {
   return new Promise ((resolve, reject) => {
     // console.log("out data deets", out_data);
@@ -131,6 +215,26 @@ apiPost = (out_data, item) => {
 }
 
 
+// Calls apiFetch() then lists the folders for user selection
+// INCOMPLETE: fetch folders from authorized user only
+getFolders=()=>{
+  console.log("getting folders");
+  let allFoldersData = apiFetch("folders.json");
+  allFoldersData.then(data => {
+    data.forEach((folderData) => {
+    //lists all folders from db
+      let folderOption = document.createElement("option");
+      folderOption.innerHTML = folderData.name
+
+      folderOption.value = folderData.id;
+      // do not display the default folder
+      if (folderData.id !== 1) document.getElementById("select-folders").appendChild(folderOption);
+    });
+  });
+}
+
+// Fetches all the folders available from DB
+// function is only called by getFolders()
 apiFetch = (fetchUrl) => {
   return new Promise ((resolve, reject) => {
     fetch(`http://localhost:3000/${fetchUrl}`)
@@ -143,24 +247,8 @@ apiFetch = (fetchUrl) => {
   });
 }
 
-getFolders=()=>{
-  console.log("getting folders");
-  let allFoldersData = apiFetch("folders.json");
-  allFoldersData.then(data => {
-    data.forEach((folderData) => {
-    //lists all folders from db
-      let folderOption = document.createElement("option");
-      folderOption.innerHTML = folderData.name
-
-      folderOption.value = folderData.id;
-      if (folderData.id !== 1) document.getElementById("select-folders").appendChild(folderOption);
-    });
-  });
-}
-
-
+// When "➕ New Folder" is selected the new folder form is shown
 showNewFolderForm = (folder) => {
-
     // create a new folder
     if (folder.target.value === 'new-folder'){
       document.getElementById("new-folder-form").removeAttribute("class");
@@ -175,9 +263,11 @@ showNewFolderForm = (folder) => {
     console.log("current folder id: ", currentFolderId);
 }
 
+// Sets the default title for POSTing which can be overwritten
 generateTitleForm = () =>{
   chrome.tabs.query({currentWindow: true}, currentTabs => {
     currentTabs.forEach((tab) => {
+      // selects current tab only
       if(tab.active === true){
         document.getElementById('create-title-form').setAttribute("value", tab.title);
       }
@@ -185,6 +275,3 @@ generateTitleForm = () =>{
   });
 }
 
-showPopup = () => {
-
-}
