@@ -27,7 +27,7 @@
         <button class="popup-btn btn btn-light m-2">
           <a href="http://localhost:3000/">TabBoard</a>
         </button>
-        <button class="popup-btn btn btn-light m-2">Close</button>
+        <button class="popup-btn btn btn-light m-2" id="close-sucess-popup">Close</button>
       </div>
     </div>
 
@@ -81,7 +81,7 @@
       <select name="folders" id="select-folders">
         <option value="1">Unsaved</option>
         <option value="new-folder" id="new-folder">
-          :signe_d'addition_trait_plein: new folder
+          ➕ new folder
         </option>
         <option disabled>_____________</option>
       </select>
@@ -98,7 +98,8 @@
           <button id="add-folder-btn" class="hidden">create a folder</button>
         </div>
       </div>
-      <button class="mt-3 btn btn-light" id="add-tab-btn ">Save tab</button>
+      <button class="mt-3 btn btn-light add-tab-btn" id="add-tab-btn ">Save tab</button>
+      <button class="mt-3 btn btn-light" id="master-save-tabs-btn">Quick save ALL tabs</button>
     </div>
   </body>
 </html>
