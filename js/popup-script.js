@@ -4,9 +4,9 @@ document.querySelector('#sign-in').addEventListener('click', function () {
         if (response === 'success') window.close();
     });
 });
-document.querySelector('#test-btn').addEventListener('click', function () {
-    console.log('in test btn')
-    chrome.runtime.sendMessage({ message: 'isUserSignedIn' }, function (response) {
-        alert(response);
-    });
-});
+// document.querySelector('#test-btn').addEventListener('click', function () {
+//     console.log('in test btn')
+//     chrome.runtime.sendMessage({ message: 'isUserSignedIn' }, function (response) {
+//         alert(response);
+//     });
+// });

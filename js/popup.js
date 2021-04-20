@@ -5,8 +5,6 @@
 // Tabboard - A productive tab management
 // Chrome extension
 
-
-
 // start of INITIALIZATIONS
   // popup.js
     console.log("popup.js running");
@@ -20,6 +18,8 @@
 
   // flags for status checks
     let creatingFolder = false;
+    let isSuccess = false;
+
 
 
   //Debug variables
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
   getFolders();                 // get folders from db when popup is clicked
   generateTitleForm();          // Auto fills title of form to current titile
 
-
   // When "+new folder" is selected, show the form to create a folder
+
   const folderSelect = document.getElementById('select-folders');
   folderSelect.addEventListener('change', (folder)=>{
     showNewFolderForm(folder);
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Else POST tab to selected folder
 
       if(creatingFolder){
-        // console.log("creating folder: ", creatingFolder);
+        console.log("creating folder: ", creatingFolder);
         const newFolder = {};
         newFolder.name = document.getElementById('create-folder').value;
 
@@ -184,10 +184,10 @@ const addNewTab = (currentTabs, currentFolderId) => {
 // posts either a creation of a new tab or a new folder
 apiPost = (out_data, item) => {
   return new Promise ((resolve, reject) => {
-    // console.log("out data deets", out_data);
+    console.log("out data deets", out_data);
     let attachUrl = "";
     let body = {};
-
+    console.log("body", body)
     // create tabs or folders?
     if(item === "new tab"){
       body = { tab: out_data };
@@ -206,7 +206,9 @@ apiPost = (out_data, item) => {
       },
       body: JSON.stringify(body)
     })
-      .then(response => response.json())
+      .then(response => {response.json();
+        console.log(response);
+      })
       .then((data) => {
         console.log("post return", data); // Look at local_names.default
         resolve(data);
