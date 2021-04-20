@@ -14,61 +14,46 @@ let isSuccess = false;
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  // var login = document.getElementById('login-btn');
-
-  // if (login) {
-  //   login.addEventListener('click', () => {
-  //     fetch("http://localhost:3000/users/auth/google_oauth2", {
-  //       method: 'POST'
-  //     }).then(res => {
-  //       console.log(11111, res)
-  //     })
-  //   })
-  // }
 
   // get folders when popup is clicked
-
   getFolders();
   generateTitleForm();
-
 
   const folderSelect = document.getElementById('select-folders');
   folderSelect.addEventListener('change', (folder)=>{
     showNewFolderForm(folder);
   });
 
-
-
   // save the tab to database
-
   // const addTab = document.getElementById('add-btn');
-  const addTab = document.querySelector('.test-btn');
+  const addTab = document.querySelector('.test-btn');   // unknown error. ID: add-btn not working
   console.log('addTab', addTab)
   addTab.addEventListener('click', function() {
     chrome.tabs.query({currentWindow: true}, currentTabs => {
-
-    // data returns an array of current open tabs. URL in tab object
+      // data returns an array of current open tabs. URL in tab object
       console.log("current tabs", currentTabs);
-
       // adds folder
       if(creatingFolder){
-        console.log("creating folder: ", creatingFolder);
+        // console.log("creating folder: ", creatingFolder);
         const newFolder = {};
         newFolder.name = document.getElementById('create-folder').value;
-        newFolder.user_id = 4;
+
+        //-------------REQUIRE GOOGLE USER ID--------------
+                      newFolder.user_id = 4;
+        //-------------------------------------------------
+
         const confirmedNewFolder = apiPost(newFolder, "new folder");
 
         console.log("new folder?", confirmedNewFolder);
 
         // allFoldersData = apiFetch("folders.json");
         confirmedNewFolder.then(data=>{
-          console.log("data:", data);
           // call the addNewTab() function
+          console.log("data:", data);
           const newFolderId = data.folder.id
           console.log('inside confirmed new folder,new id:', newFolderId)
           isSuccess = addNewTab(currentTabs, newFolderId);
           document.getElementById("success-popup").removeAttribute("class");
-
         });
       }else{
         // add tab to folders
@@ -84,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // hides sucessful popup
   const closePopupBtn = document.getElementById('close-popup');
-  // const closePopupBtn = document.querySelector('close-popup');
   closePopupBtn.addEventListener("click", ()=>{
     isSuccess = false;
     document.getElementById("success-popup").setAttribute("class", "hidden");
