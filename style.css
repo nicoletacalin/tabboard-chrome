@@ -2,7 +2,7 @@ body {
   width: 423px;
   height: 317px;
   background: #ffffff;
-  border: 1px solid #c4c4c4;
+  /*border: 1px solid #c4c4c4;*/
   box-sizing: border-box;
   padding: 0;
 }
@@ -14,11 +14,17 @@ a {
 
 .logo {
   height: 60px;
-  background: #df4b14;
+  /*background: #F5F5F5;*/
+  background: black;
   width: 100%;
   color: white;
+  /*color: black;*/
   text-align: center;
   padding-top: 10px;
+  border-radius: 10px 10px 0 0;
+/*  display: flex;
+  justify-content: space-around;
+  align-items: center;*/
 }
 
 img {
@@ -53,11 +59,11 @@ input {
 
 .sign-up-btn {
   background-color: #df4b14;
-  border-radius: 5px;
+  border-radius: 15px;
   text-align: center;
   color: #ffffff;
   padding: 6px 12px;
-  border: none;
+  border: 1px solid black;
 }
 
 .hidden {
@@ -88,24 +94,99 @@ input {
   height: 80px;
   border-radius: 50%;
   margin: 50px auto 20px auto;
-  background-color: #DF4B14;
+  background-color: #4CCB2C;
 }
 
 .popup-container{
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .popup-btn{
-  background-color: #DF4B14;
-  color: #DF4B14;
+  width: 200px;
 }
 
 .popup-btn a{
   text-decoration: none;
-  color: #DF4B14;
+  color: black;
 }
 .tick {
   margin-left: 30px;
   margin-top: 30px;
 }
+
+.button {
+  background-color: #F5F5F5;
+  color: #020202;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  border: 1.5px solid black;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 10px;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+.contain {
+  padding: 10px 20px;
+}
+
+.button-sign-out{
+  position: absolute;
+  right: 20px;
+  top: 2px;
+  background-color: #E0E0E0;
+  color: #020202;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid black;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: .2rem 1rem;
+  font-size: .7rem;
+  line-height: 1.5;
+  border-radius: 8px;
+
+}
+
+.form-group{
+  display: flex;
+  align-items: center;
+}
+
+.title-spacing{
+  margin-right: 10px;
+}
+
+.choose-folders {
+  margin: 0px 0px 0px 0px;
+  padding-top: 10px;
+  padding-bottom: 4px;
+}
+
+.form-control-style {
+  border-radius: 10px !important;
+  border: 1px solid black !important;
+
+}
+
+.sign-out-icon{
+   position: absolute;
+  right: 20px;
+  top: 20px;
+  filter: invert(1);
+}
+
+
+
+
+
+
+
