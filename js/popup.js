@@ -28,12 +28,9 @@
 
   // flags for status checks
     let creatingFolder = false;
-    let isSuccess = false;
-
-
 
   //Debug variables
-    // let isSuccess = false;
+    let isSuccess = false;
 // end of INITIALIZATIONS
 
 // ----------------------- main -------------------------
