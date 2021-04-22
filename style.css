@@ -1,6 +1,6 @@
 body {
-  width: 423px;
-  height: 317px;
+  width: 400px;
+  height: 300px;
   background: #ffffff;
   box-sizing: border-box;
   padding: 0;
@@ -17,23 +17,27 @@ a {
   width: 25px;
   margin-left: 10px;
   margin-top: -1px;
+  color: #2F80ED;
 }
 
 .logo {
-  height: 60px;
+  height: 40px;
   background: #F5F5F5;
   width: 100%;
   color: black;
   text-align: left;
-  padding-top: 15px;
+  padding-top: 10px;
   padding-left: 30px;
   size: 12px;
+  display: flex;
+  align-items: center;
 
 }
 
 .logo > h1{
   font-family: 'Roboto', sans-serif;
   font-weight: bold !important;
+
 
 }
 
@@ -78,7 +82,7 @@ label {
 input {
   width: 376px;
   height: 41px;
-  border: 1px solid #c4c4c4;
+  /*border: 1px solid #c4c4c4;*/
   box-sizing: border-box;
   border-radius: 5px;
 }
@@ -144,25 +148,30 @@ input {
 }
 
 .button {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: bold;
   position: relative;
-  background-color: #F5F5F5;
-  color: #020202;
+  background-color: transparent;
+  color: #000000;
   display: inline-block;
-  font-weight: 400;
+  font-weight: bold;
   text-align: center;
   white-space: nowrap;
-  border: 1.5px solid black;
+  border: none;
   padding: .375rem .75rem;
-  font-size: 1rem;
+  letter-spacing: 0.05em;
+  font-size: 12px;
   line-height: 1.5;
   border-radius: 10px;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  /*transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
 }
 
 .button:hover{
   top: -1px;
-  background-color: #DDD;
-  transition: 300ms;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  /*background-color: #DDD;*/
+  /*transition: 300ms;*/
 
 }
 
@@ -187,7 +196,6 @@ input {
   font-size: .7rem;
   line-height: 1.5;
   border-radius: 8px;
-
 }
 
 .form-group{
