@@ -231,10 +231,6 @@ input {
   filter: invert(0.1);
 }
 
-.sign-out-icon:hover{
-  top: 18px;
-  filter: invert(1);
-}
 
 /*body {
   width: 423px;
