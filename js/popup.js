@@ -88,14 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
           const newFolderId = data.folder.id
           console.log('inside confirmed new folder,new id:', newFolderId)
           isSuccess = addNewTab(currentTabs, newFolderId);
-          document.getElementById("success-popup").removeAttribute("class");
+          if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
         });
       }else{
         // add tab to folders, show success popup on success
         console.log('create tab on existing folder')
 
         isSuccess = addNewTab(currentTabs, currentFolderId);
-        document.getElementById("success-popup").removeAttribute("class");
+        if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
       }
     });
   }, false);
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   // hides the popup "sucessful popup" on btn click
-  const closePopupBtn = document.getElementById('close-sucess-popup');
+  const closePopupBtn = document.getElementById('close-success-popup');
   // const closePopupBtn = document.querySelector('.close-sucess-popup');
   closePopupBtn.addEventListener("click", ()=>{
     isSuccess = false;    // for debug
@@ -116,7 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Saved tabs only got to the default unsaved tabs folder
   const masterSaveBtn = document.getElementById("master-save-tabs-btn");
   masterSaveBtn.addEventListener('click', ()=>{
-    saveAllTabs();
+    isSuccess = saveAllTabs();
+    if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
+  });
+
+  const closeExtensionPopup = document.getElementById("close-extension");
+  closeExtensionPopup.addEventListener('click', ()=>{
+    window.close();
   });
 
 }, false);
@@ -144,6 +150,7 @@ const saveAllTabs = () => {
   });
   // flush array to avoid stacking data
   allTabsArray = [];
+  return true;
 }
 
 // Receives formatted data and POST to a non-rails-default route
