@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const newFolderId = data.folder.id
           console.log('inside confirmed new folder,new id:', newFolderId)
           isSuccess = addNewTab(currentTabs, newFolderId);
-          document.getElementById("success-popup").removeAttribute("class");
+          if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
         });
       }else{
         // add tab to folders, show success popup on success
@@ -104,11 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   // hides the popup "sucessful popup" on btn click
-  const closePopupBtn = document.getElementById('close-sucess-popup');
+  const closePopupBtn = document.getElementById('close-success-popup');
   // const closePopupBtn = document.querySelector('.close-sucess-popup');
   closePopupBtn.addEventListener("click", ()=>{
     isSuccess = false;    // for debug
-    document.getElementById("success-popup").setAttribute("class", "hidden");
+    window.close();
   });
 
 
@@ -116,8 +116,26 @@ document.addEventListener('DOMContentLoaded', function() {
   // Saved tabs only got to the default unsaved tabs folder
   const masterSaveBtn = document.getElementById("master-save-tabs-btn");
   masterSaveBtn.addEventListener('click', ()=>{
-    saveAllTabs();
+    isSuccess = saveAllTabs();
+    if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
   });
+
+  const closeExtensionPopup = document.getElementById("close-success-popup");
+  closeExtensionPopup.addEventListener('click', ()=>{
+    window.close();
+  });
+
+  const goHome = document.querySelector(".goHome");
+  goHome.addEventListener('click', ()=>{
+    console.log("clicking");
+    chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+  });
+  const goHome1 = document.getElementById("goHome");
+  goHome1.addEventListener('click', ()=>{
+    console.log("clicking");
+    chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+  });
+
 
 }, false);
 // --------------------end of main ------------------------
@@ -144,6 +162,7 @@ const saveAllTabs = () => {
   });
   // flush array to avoid stacking data
   allTabsArray = [];
+  return true;
 }
 
 // Receives formatted data and POST to a non-rails-default route
@@ -219,8 +238,9 @@ apiPost = (out_data, item) => {
       },
       body: JSON.stringify(body)
     })
-      .then(response => {response.json();
+      .then(response => {
         console.log(response);
+        return response.json();
       })
       .then((data) => {
         console.log("post return", data); // Look at local_names.default
