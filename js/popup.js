@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('create tab on existing folder')
 
         isSuccess = addNewTab(currentTabs, currentFolderId);
-        if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
+        document.getElementById("success-popup").removeAttribute("class");
       }
     });
   }, false);
