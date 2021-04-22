@@ -77,10 +77,10 @@ input {
 }
 
 #success-popup {
-  height: 85%;
-  width: 80%;
+  height: 250px !important;
+  width: 290px;
   position: absolute;
-  left: 50%;
+  left: 62%;
   margin-left: -40%;
   top: 50%;
   margin-top: -30%;
@@ -181,9 +181,13 @@ input {
    position: absolute;
   right: 20px;
   top: 20px;
-  filter: invert(1);
+  filter: invert(0.8);
 }
 
+.sign-out-icon:hover{
+  top: 18px;
+  filter: invert(1);
+}
 
 
 
