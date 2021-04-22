@@ -11,14 +11,52 @@ a {
   text-decoration-color: none;
 }
 
+/*THE G FROM GOOGLE*/
+.G {
+  height: 25px;
+  width: 25px;
+  margin-left: 10px;
+  margin-top: -1px;
+}
+
 .logo {
   height: 60px;
-  background:  black;
+  background: #F5F5F5;
   width: 100%;
-  color: #F5F5F5;
-  text-align: center;
-  padding-top: 10px;
-  border-radius: 10px 10px 0 0;
+  color: black;
+  text-align: left;
+  padding-top: 15px;
+  padding-left: 30px;
+  size: 12px;
+
+}
+
+.logo > h1{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold !important;
+
+}
+
+.sign-in-btn{
+  display: inline-flex !important;
+  padding-bottom: 0px;
+  position: absolute !important;
+  left: 125px;
+  top: 150px;
+  border: 1px solid black;
+}
+.sign-in-btn:hover{
+  top: 149px !important;
+}
+
+#goHome{
+  position: relative;
+  cursor: pointer;
+}
+
+#goHome:hover{
+  color: #222;
+  top: -1px;
 }
 
 img {
@@ -51,17 +89,10 @@ input {
   font-family: 'Roboto', sans-serif;
 }
 
-.sign-up-btn {
-  background-color: #df4b14;
-  border-radius: 15px;
-  text-align: center;
-  color: #ffffff;
-  padding: 6px 12px;
-  border: 1px solid black;
-}
+
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .linebreak {
@@ -71,16 +102,15 @@ input {
 }
 
 #success-popup {
-  height: 85%;
+/*  height: 85%;
   width: 80%;
-  position: absolute;
   left: 50%;
   margin-left: -40%;
   top: 50%;
-  margin-top: -30%;
+  margin-top: -30%;*/
   background-color: rgba(200, 200, 200, 0.9);
   z-index: 100;
-  border-radius: 5px;
+  border-radius: 2px 2px 0 0;
 }
 
 .popup-container{
@@ -90,7 +120,9 @@ input {
 }
 
 .popup-btn{
-  width: 200px;
+  display: inline-block;
+  width: 150px;
+  height: 30px;
 }
 
 .popup-btn a{
@@ -102,7 +134,13 @@ input {
   margin-top: 30px;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .button {
+  position: relative;
   background-color: #F5F5F5;
   color: #020202;
   display: inline-block;
@@ -117,9 +155,15 @@ input {
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+.button:hover{
+  top: -1px;
+  background-color: #DDD;
+  transition: 300ms;
+
+}
 
 .contain {
-  padding: 10px 20px;
+  padding: 10px 30px;
 }
 
 .button-sign-out{
@@ -145,6 +189,9 @@ input {
 .form-group{
   display: flex;
   align-items: center;
+  height: 0;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 .title-spacing{
@@ -163,11 +210,22 @@ input {
 
 }
 
+#select-folders{
+  border-radius: 5px;
+  padding: 3px;
+  width: 100%;
+}
+
 .sign-out-icon{
    position: absolute;
   right: 20px;
   top: 20px;
-  filter: invert(1);
+  /*filter: invert(1);*/
+}
+
+.sign-out-icon:hover{
+  top: 18px;
+  filter: invert(0.1);
 }
 
 

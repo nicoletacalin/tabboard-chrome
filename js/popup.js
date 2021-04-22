@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // const closePopupBtn = document.querySelector('.close-sucess-popup');
   closePopupBtn.addEventListener("click", ()=>{
     isSuccess = false;    // for debug
-    document.getElementById("success-popup").setAttribute("class", "hidden");
+    window.close();
   });
 
 
@@ -117,7 +117,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const masterSaveBtn = document.getElementById("master-save-tabs-btn");
   masterSaveBtn.addEventListener('click', ()=>{
     saveAllTabs();
+    document.getElementById("success-popup").removeAttribute("class");
   });
+
+  const goHome = document.querySelector(".goHome");
+  goHome.addEventListener('click', ()=>{
+    chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+  });
+  const goHome1 = document.getElementById("goHome");
+  goHome1.addEventListener('click', ()=>{
+    chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+  });
+
 
 }, false);
 // --------------------end of main ------------------------
