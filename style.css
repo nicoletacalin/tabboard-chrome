@@ -11,6 +11,10 @@ a {
   text-decoration-color: none;
 }
 
+.logo-url {
+ color: #000 !important;
+ text-decoration: none !important;
+}
 /*THE G FROM GOOGLE*/
 .G {
   height: 25px;
@@ -116,15 +120,9 @@ input {
   margin-left: -40%;
   top: 50%;
   margin-top: -30%;*/
-  background-color: rgba(200, 200, 200, 0.9);
+  background-color: #F5F5F5;
   z-index: 100;
   border-radius: 2px 2px 0 0;
-}
-
-.popup-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .popup-btn{
@@ -144,7 +142,7 @@ input {
 
 .button-container {
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
 }
 
 .button {
@@ -159,7 +157,7 @@ input {
   text-align: center;
   white-space: nowrap;
   border: none;
-  padding: .375rem .75rem;
+  /*padding: .375rem .75rem;*/
   letter-spacing: 0.05em;
   font-size: 12px;
   line-height: 1.5;
@@ -181,11 +179,11 @@ input {
 
 .button-sign-out{
   position: absolute;
-  right: 20px;
-  top: 2px;
+  /*right: 20px;*/
+  /*top: 2px;*/
   background-color: #E0E0E0;
   color: #020202;
-  display: inline-block;
+  /*display: inline-block;*/
   font-weight: 400;
   text-align: center;
   white-space: nowrap;
@@ -217,27 +215,47 @@ input {
 }
 
 .form-control-style {
-  border-radius: 10px !important;
-  border: 1px solid black !important;
+  /*border-radius: 10px !important;*/
+  border: transparent !important;
+
 
 }
 
 #select-folders{
-  border-radius: 5px;
+  border-radius: 2px;
   padding: 3px;
-  width: 100%;
+  /*width: 65%;*/
+  background: #F5F5F5;
+  border: none !important;
+  border-radius: 2px;
 }
 
 .sign-out-icon{
-   position: absolute;
+  position: absolute;
   right: 20px;
-  top: 20px;
+  top: 10px;
+/*  bottom: 30px;*/
 }
 
-.sign-out-icon:hover{
+.popup-container {
+  display: flex; align-items: center;
+  width: 100%; justify-content: center;
+  padding: 5px 10px;
+}
+
+h2 {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12;
+  /*letter-spacing: */
+}
+
+/*.sign-out-icon:hover{
   top: 18px;
   filter: invert(0.1);
-}
+}*/
 
 
 /*body {
