@@ -120,17 +120,19 @@ document.addEventListener('DOMContentLoaded', function() {
     if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
   });
 
-  const closeExtensionPopup = document.getElementById("close-extension");
+  const closeExtensionPopup = document.getElementById("close-success-popup");
   closeExtensionPopup.addEventListener('click', ()=>{
     window.close();
   });
 
   const goHome = document.querySelector(".goHome");
   goHome.addEventListener('click', ()=>{
+    console.log("clicking");
     chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
   });
   const goHome1 = document.getElementById("goHome");
   goHome1.addEventListener('click', ()=>{
+    console.log("clicking");
     chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
   });
 
