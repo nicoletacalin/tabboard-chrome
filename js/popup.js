@@ -219,8 +219,9 @@ apiPost = (out_data, item) => {
       },
       body: JSON.stringify(body)
     })
-      .then(response => {response.json();
+      .then(response => {
         console.log(response);
+        return response.json();
       })
       .then((data) => {
         console.log("post return", data); // Look at local_names.default
