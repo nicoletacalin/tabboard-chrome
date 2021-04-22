@@ -53,13 +53,13 @@
           <button id=login-btn>Test login</button> -->
         <!--     <h1>get folders</h1>
       <button id=get-folder-btn>Get folder</button> -->
-        <label for="folders" class="choose-folders" style="margin-top: 2px;"><h5>Add to Archive:</h5></label>
+        <label for="folders" class="choose-folders" style="margin-top: 2px;"><h5>Add to Folder:</h5></label>
         <br>
 
         <select name="folders" id="select-folders">
           <!-- <option value="" id="default-folder">Unsaved</option> -->
           <option value="new-folder" id="new-folder">
-            ➕ new archive
+            ➕ New Folder
           </option>
           <option disabled>_____________</option>
         </select>
@@ -69,6 +69,7 @@
           <div class="form-group">
             <label for="create-folder"><p style="font-size: 20px;">Create a folder:</p></label>
             <input
+              maxlength="15"
               type="text"
               class="form-control form-control-style"
               id="create-folder"

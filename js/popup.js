@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const folderSelect = document.getElementById('select-folders');
   folderSelect.addEventListener('change', (folder)=>{
+    console.log(99999, folder)
     showNewFolderForm(folder);
   });
 
@@ -146,6 +147,31 @@ document.addEventListener('DOMContentLoaded', function() {
 // collects all the tabs in window and Formats the data for POST
 // calls apiPostAllTabs() for POST
 const saveAllTabs = () => {
+  let folderId;
+  const folder = document.getElementById('select-folders')
+  console.log(111111, folder.value)
+  if (folder && folder.value == 'new-folder') {
+    console.log('creating new folder in saveAllTabs')
+    const newFolder = {};
+    newFolder.name = document.getElementById('create-folder').value;
+
+    // ------------- needs to obtain current user id ---------------
+                      // newFolder.user_id = 6; // currently hard coded
+    // -------------------------------------------------------------
+
+    apiPost(newFolder, "new folder").then(data=>{
+      folderId = data.folder.id
+      console.log({folderId})
+      consolidateAllTabsToBody(folderId);
+    });
+  } else {
+    folderId = currentFolderId
+    console.log({folderId})
+    consolidateAllTabsToBody(folderId);
+  }
+}
+
+const consolidateAllTabsToBody = (folderId) => {
   let allTabsArray = [];
 
   chrome.tabs.query({currentWindow: true}, currentTabs => {
@@ -155,20 +181,22 @@ const saveAllTabs = () => {
       singleTab.url = tab.url;
       singleTab.title = tab.title;
       singleTab.icon = tab.favIconUrl;
-      singleTab.folder_id = defaultFolderId;
+      singleTab.folder_id = folderId;
       allTabsArray.push(singleTab);
     });
-    apiPostAllTabs(allTabsArray);
+    apiPostAllTabs(allTabsArray, folderId).then(res=> {
+      allTabsArray = [];
+      return true;
+    })
   });
   // flush array to avoid stacking data
-  allTabsArray = [];
-  return true;
+
 }
 
 // Receives formatted data and POST to a non-rails-default route
 // saveall. Saved tabs only got to the default unsaved tabs folder
 // function is only called by saveAllTabs()
-const apiPostAllTabs = (out_data, folder_id = 1) => {
+const apiPostAllTabs = (out_data, folder_id) => {
   return new Promise ((resolve, reject) => {
     // console.log("out data deets", out_data);
     let attachUrl = "";
