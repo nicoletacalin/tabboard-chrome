@@ -107,35 +107,51 @@ document.addEventListener('DOMContentLoaded', function() {
   // hides the popup "sucessful popup" on btn click
   const closePopupBtn = document.getElementById('close-success-popup');
   // const closePopupBtn = document.querySelector('.close-sucess-popup');
-  closePopupBtn.addEventListener("click", ()=>{
-    isSuccess = false;    // for debug
-    window.close();
-  });
+  if (closePopupBtn) {
+    closePopupBtn.addEventListener("click", ()=>{
+      isSuccess = false;    // for debug
+      window.close();
+    });
+
+  }
 
 
   // button saves ALL tabs to unsavded folder
   // Saved tabs only got to the default unsaved tabs folder
   const masterSaveBtn = document.getElementById("master-save-tabs-btn");
-  masterSaveBtn.addEventListener('click', ()=>{
-    isSuccess = saveAllTabs();
-    if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
-  });
+  console.log({masterSaveBtn})
+  if (masterSaveBtn) {
+    masterSaveBtn.addEventListener('click', ()=>{
+      isSuccess = saveAllTabs();
+      if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
+    });
+
+  }
 
   const closeExtensionPopup = document.getElementById("close-success-popup");
-  closeExtensionPopup.addEventListener('click', ()=>{
-    window.close();
-  });
+  if (closeExtensionPopup) {
+    closeExtensionPopup.addEventListener('click', ()=>{
+      window.close();
+    });
+
+  }
 
   const goHome = document.querySelector(".goHome");
-  goHome.addEventListener('click', ()=>{
-    console.log("clicking");
-    chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
-  });
+  if (goHome) {
+    goHome.addEventListener('click', ()=>{
+      console.log("clicking");
+      chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+    });
+
+  }
   const goHome1 = document.getElementById("goHome");
-  goHome1.addEventListener('click', ()=>{
-    console.log("clicking");
-    chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
-  });
+  if (goHome1) {
+    goHome1.addEventListener('click', ()=>{
+      console.log("clicking");
+      chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+    });
+
+  }
 
 
 }, false);
