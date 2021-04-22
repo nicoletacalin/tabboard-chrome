@@ -105,6 +105,10 @@ input {
 /*  height: 85%;
   width: 80%;
   left: 50%;
+  height: 250px !important;
+  width: 290px;
+  position: absolute;
+  left: 62%;
   margin-left: -40%;
   top: 50%;
   margin-top: -30%;*/
@@ -220,7 +224,6 @@ input {
    position: absolute;
   right: 20px;
   top: 20px;
-  /*filter: invert(1);*/
 }
 
 .sign-out-icon:hover{
@@ -228,6 +231,10 @@ input {
   filter: invert(0.1);
 }
 
+.sign-out-icon:hover{
+  top: 18px;
+  filter: invert(1);
+}
 
 /*body {
   width: 423px;
