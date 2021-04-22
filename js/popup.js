@@ -185,6 +185,7 @@ const saveAllTabs = () => {
     console.log({folderId})
     consolidateAllTabsToBody(folderId);
   }
+  return true
 }
 
 const consolidateAllTabsToBody = (folderId) => {
