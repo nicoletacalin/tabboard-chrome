@@ -10,6 +10,8 @@
     console.log("popup.js running");
 
     let token, email;
+    // const baseUrl = 'http://localhost:3000'
+    const baseUrl = 'https://taboard.herokuapp.com'
 
     chrome.storage.local.get(['token', 'email'], function(result) {
       token = result.token
@@ -140,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (goHome) {
     goHome.addEventListener('click', ()=>{
       console.log("clicking");
-      chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+      chrome.tabs.create({url: baseUrl}, ()=>{console.log("opend");});
     });
 
   }
@@ -148,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (goHome1) {
     goHome1.addEventListener('click', ()=>{
       console.log("clicking");
-      chrome.tabs.create({url: "http://localhost:3000"}, ()=>{console.log("opend");});
+      chrome.tabs.create({url: baseUrl}, ()=>{console.log("opend");});
     });
 
   }
@@ -222,7 +224,7 @@ const apiPostAllTabs = (out_data, folder_id) => {
     body = { tabs: {content: out_data} };
     console.log("body", body);
     // fetch("https://httpbin.org/post", {
-    fetch(`http://localhost:3000/folders/${folder_id}/saveall?format=json`, {
+    fetch(`${baseUrl}/folders/${folder_id}/saveall?format=json`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -274,7 +276,7 @@ apiPost = (out_data, item) => {
     }
 
     // fetch("https://httpbin.org/post", {
-    fetch(`http://localhost:3000/folders/${attachUrl}?format=json`, {
+    fetch(`${baseUrl}/folders/${attachUrl}?format=json`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -331,7 +333,7 @@ getFolders=()=>{
 // function is only called by getFolders()
 apiFetch = (fetchUrl) => {
   return new Promise ((resolve, reject) => {
-    fetch(`http://localhost:3000/${fetchUrl}`, {
+    fetch(`${baseUrl}/${fetchUrl}`, {
       headers: {
         'X-User-Email': email,
         'X-User-Token': token

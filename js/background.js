@@ -5,6 +5,9 @@ let current_tab_id = 0;
 let user_signed_in = false;
 let user_id = "";
 
+// const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://taboard.herokuapp.com'
+
 const CLIENT_ID = encodeURIComponent('971672027408-29haths710vq9bc08h76d34tk86ija2b.apps.googleusercontent.com');
 const RESPONSE_TYPE = encodeURIComponent('id_token');
 const REDIRECT_URI = encodeURIComponent('https://bhkodjoknpgpkejmojjopomkndbcmhcf.chromiumapp.org');
@@ -42,7 +45,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
           console.log('USER INFO =', user_info)
 
           let body = {user: user_info};
-          fetch(`http://localhost:3000/users/login_from_ext?format=json`, {
+          fetch(`${baseUrl}/users/login_from_ext?format=json`, {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
