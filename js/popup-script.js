@@ -8,7 +8,6 @@ document.querySelector('#sign-in').addEventListener('click', function () {
     setTimeout(() => {
       chrome.tabs.create({ url: action_url });
     }, 2000);
-
 });
 // document.querySelector('#test-btn').addEventListener('click', function () {
 //     console.log('in test btn')

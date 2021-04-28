@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
+
+/*// Define fonts for body and headers - this is the same as on webapp but it messed up the formating for some reason
+$body-font: "Work Sans", "Helvetica", "sans-serif";
+$headers-font: "Nunito", "Helvetica", "sans-serif";*/
+
 body {
   width: 400px;
   height: 300px;
@@ -38,11 +44,13 @@ a {
 
 }
 
-.logo > h1{
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold !important;
-
-
+/*Comment: should be same as on the webapp*/
+.logo > h4{
+  font-family: "Nunito", "Helvetica", "sans-serif";
+  font-weight: 500!important;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 5px;
 }
 
 .sign-in-btn{
