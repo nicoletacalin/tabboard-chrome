@@ -4,7 +4,10 @@
   "version": "1.0.3",
   "description": "Clear Space - Clear Mind",
   "homepage_url": "https://taboard.herokuapp.com",
+  // DEV ENVIRONMENT KEY
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyLQXY3+ZAnJqHTcKAECr0zETXVJST58UBvKA5WS6OhMBvdhZvgAn9k3qt2diBDp/s2z9uwpRPhSsAutilyymXnvhX/Az0t7si6x5pFIRcd2y9Q6FYfYfbmnr4NQIRf74w3B8WJqibQCPIkWYgJ5/r9Dv2waokG0QNfZ6g/O+F4Hbp0ElQcbrwxpOhE0Mdei6QEPvABNynpbk40vlElAfu0aeghqDt5jM6Bt/EBOg1iIbmOGHFsXqmtat39fjHz6M070VST1qypTbpTteYrftfSBky9FgNmDlLWRTnhdC6hhKedUY/IbfgXvDtdTnqY09HvkWJao9eZZzsx56vC4OiwIDAQAB",
+  // PRODUCTION KEY
+  // "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAli8prD2eRu79ZTa/kAsDF654jVxYqqXF0UAUCcymcCe65s+r/3d5p8QmAe3G7oZgDZ4fKK7AP7ZxEQWh1pSIqGoEOZIF7lUcY7gyM2A6+bQ7YHAd2yWSROEp81JLnGp8GzJYaN5G31Ura3p97PSeHsvv5yePTc0E59fqiF1djtl2QXUuxhFD0Jk/zA9Fy7rXg3PBi411rrk18ggo3cMyxpPb6y4qk46EqQ7etGSqUfCyyTfqfbfXmBjiCfA8uuj4E9+uIBF/XanSxyG6G71FBAcihnafFw7cjuw9jx1bwFAtGd+SF4Z3R1Sm4DEopKea6d5oY84uIVV/Ao2zjHcGKQIDAQAB",
   "icons": {
     "128": "icon/icon_128.png"
   },
