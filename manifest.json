@@ -1,41 +1,30 @@
 {
-  "name": "Tabboard",          //45 char max
-  "description": "Clear Space - Clear Mind",
-  "version": "0.1.0",
   "manifest_version": 2,
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyLQXY3+ZAnJqHTcKAECr0zETXVJST58UBvKA5WS6OhMBvdhZvgAn9k3qt2diBDp/s2z9uwpRPhSsAutilyymXnvhX/Az0t7si6x5pFIRcd2y9Q6FYfYfbmnr4NQIRf74w3B8WJqibQCPIkWYgJ5/r9Dv2waokG0QNfZ6g/O+F4Hbp0ElQcbrwxpOhE0Mdei6QEPvABNynpbk40vlElAfu0aeghqDt5jM6Bt/EBOg1iIbmOGHFsXqmtat39fjHz6M070VST1qypTbpTteYrftfSBky9FgNmDlLWRTnhdC6hhKedUY/IbfgXvDtdTnqY09HvkWJao9eZZzsx56vC4OiwIDAQAB",
+  "name": "TaBoard",
+  "version": "1.0.2",
+  "description": "Clear Space - Clear Mind",
+  "homepage_url": "https://taboard.herokuapp.com",
   "icons": {
-  //   "16": "path",
-  //   "32": "path",
-  //   "48": "path",
     "128": "icon/icon_128.png"
   },
   "permissions": [
-    // https://stackoverflow.com/questions/16096482/what-does-http-https-and-all-urls-mean-in-the-context-of-ch
     "<all_urls>",
     "activeTab",
     "tabs",
-    // context menus for right click page
-    "contextMenus",
-    // saves data locally or by acc
     "storage",
     "identity"
-],
+  ],
   "background": {
     "scripts": [
       "./js/background.js",
       "./js/jsrasign-all-min.js"
     ]
   },
-  "options_page": "./options.html",
-  // "action": {
   "browser_action": {
     "default_popup": "popup-sign-in.html"
   },
-
   "oauth2": {
     "client_id": "971672027408-v2fhakhcl32m5qg9v6mhs5hmnprpp43j.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
   }
-
 }
