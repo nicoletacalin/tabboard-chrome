@@ -66,6 +66,7 @@ a {
 }
 
 #goHome{
+  font-family: "Nunito", "Helvetica", "sans-serif";
   position: relative;
   cursor: pointer;
 }
@@ -73,6 +74,25 @@ a {
 #goHome:hover{
   color: #222;
   top: -1px;
+}
+
+.title-spacing {
+  font-family: "Nunito", "Helvetica", "sans-serif";
+}
+
+.choose-folders {
+  font-family: "Nunito", "Helvetica", "sans-serif";
+ }
+.choose-folders > h2 {
+  font-family: "Nunito", "Helvetica", "sans-serif";
+ }
+
+ #add-tab-btn{
+  font-family: "Nunito", "Helvetica", "sans-serif";
+}
+
+#master-save-tabs-btn{
+  font-family: "Nunito", "Helvetica", "sans-serif";
 }
 
 img {
