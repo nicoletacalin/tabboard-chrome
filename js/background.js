@@ -10,7 +10,8 @@ const baseUrl = 'https://taboard.herokuapp.com'
 
 const CLIENT_ID = encodeURIComponent('971672027408-29haths710vq9bc08h76d34tk86ija2b.apps.googleusercontent.com');
 const RESPONSE_TYPE = encodeURIComponent('id_token');
-const REDIRECT_URI = encodeURIComponent('https://bhkodjoknpgpkejmojjopomkndbcmhcf.chromiumapp.org');
+// const REDIRECT_URI = encodeURIComponent('https://bhkodjoknpgpkejmojjopomkndbcmhcf.chromiumapp.org');
+const REDIRECT_URI = encodeURIComponent('https://nchjighemnpaocgbecjeokgejnjbhpgm.chromiumapp.org');
 const STATE = encodeURIComponent('jfkls3n');
 const SCOPE = encodeURIComponent('email');
 const PROMPT = encodeURIComponent('consent');
