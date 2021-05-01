@@ -10,8 +10,8 @@
     console.log("popup.js running");
 
     let token, email;
-    // const baseUrl = 'http://localhost:3000'
     const baseUrl = 'https://taboard.herokuapp.com'
+    // const baseUrl = 'http://localhost:3000'
 
     chrome.storage.local.get(['token', 'email'], function(result) {
       token = result.token
@@ -23,6 +23,8 @@
   // variables
     const active_tab_details = {};
     // Defaults to 1, needs to be changed to unsaved tabs
+    // HARDCODED
+    // need extensive checking before removal
     let currentFolderId = 1;
     const defaultFolderId = 1;
     // let user_id = user_id
@@ -45,10 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // When "+new folder" is selected, show the form to create a folder
 
   const folderSelect = document.getElementById('select-folders');
-  folderSelect.addEventListener('change', (folder)=>{
-    console.log(99999, folder)
-    showNewFolderForm(folder);
-  });
+  folderSelect.addEventListener('change', (folder)=>{ showNewFolderForm(folder); });
 
   // ----------- start of: addTab event listener----------------
   // save the tab to database
@@ -71,10 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const newFolder = {};
         newFolder.name = document.getElementById('create-folder').value;
 
-        // ------------- needs to obtain current user id ---------------
-                          // newFolder.user_id = 6; // currently hard coded
-        // -------------------------------------------------------------
-
         const confirmedNewFolder = apiPost(newFolder, "new folder");
 
         // --------------------DEBUG--------------------
@@ -88,15 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
         confirmedNewFolder.then(data=>{
           // call the addNewTab() function
           console.log("data:", data);
-          const newFolderId = data.folder.id
-          console.log('inside confirmed new folder,new id:', newFolderId)
+          const newFolderId = data.folder.id;
+          console.log('inside confirmed new folder,new id:', newFolderId);
           isSuccess = addNewTab(currentTabs, newFolderId);
           if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
         });
       }else{
         // add tab to folders, show success popup on success
-        console.log('create tab on existing folder')
-
+        console.log('create tab on existing folder');
         isSuccess = addNewTab(currentTabs, currentFolderId);
         document.getElementById("success-popup").removeAttribute("class");
       }
@@ -104,64 +98,58 @@ document.addEventListener('DOMContentLoaded', function() {
   }, false);
   // ------------- end of: addTab event listener----------------
 
-
-
   // hides the popup "sucessful popup" on btn click
-  const closePopupBtn = document.getElementById('close-success-popup');
   // const closePopupBtn = document.querySelector('.close-sucess-popup');
-  if (closePopupBtn) {
-    closePopupBtn.addEventListener("click", ()=>{
-      isSuccess = false;    // for debug
-      window.close();
-    });
-
-  }
-
+  const closePopupBtn = document.getElementById('close-success-popup');
+  closePopup(closePopupBtn);
 
   // button saves ALL tabs to unsavded folder
   // Saved tabs only got to the default unsaved tabs folder
   const masterSaveBtn = document.getElementById("master-save-tabs-btn");
-  console.log({masterSaveBtn})
-  if (masterSaveBtn) {
-    masterSaveBtn.addEventListener('click', ()=>{
-      isSuccess = saveAllTabs();
-      if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
-    });
-
-  }
+  masterSave(masterSaveBtn);
 
   const closeExtensionPopup = document.getElementById("close-success-popup");
-  if (closeExtensionPopup) {
-    closeExtensionPopup.addEventListener('click', ()=>{
-      window.close();
-    });
+  closePopup(closeExtensionPopup);
 
-  }
-
+  //unknown bug keep ID and class
   const goHome = document.querySelector(".goHome");
-  if (goHome) {
-    goHome.addEventListener('click', ()=>{
-      console.log("clicking");
-      chrome.tabs.create({url: baseUrl}, ()=>{console.log("opend");});
-    });
-
-  }
   const goHome1 = document.getElementById("goHome");
-  if (goHome1) {
-    goHome1.addEventListener('click', ()=>{
-      console.log("clicking");
-      chrome.tabs.create({url: baseUrl}, ()=>{console.log("opend");});
-    });
-
-  }
-
-
+  goToTaboard(goHome);
+  goToTaboard(goHome1);
 }, false);
 // --------------------end of main ------------------------
 
 
 
 // ---------------------- functions -----------------------
+const masterSave = (masterSaveBtn) => {
+  console.log({masterSaveBtn}); // aggy's debug
+  if (masterSaveBtn) {
+    masterSaveBtn.addEventListener('click', ()=>{
+      isSuccess = saveAllTabs();
+      if(isSuccess) document.getElementById("success-popup").removeAttribute("class");
+    });
+  }
+}
+
+const closePopup = (closePopupBtn) => {
+  if (closePopupBtn) {
+    closePopupBtn.addEventListener("click", ()=>{
+      isSuccess = false;    // for debug
+      window.close();
+    });
+  }
+}
+
+const goToTaboard = (home) => {
+  if (home) {
+    home.addEventListener('click', ()=>{
+      console.log("clicking");
+      chrome.tabs.create({url: baseUrl}, ()=>{console.log("opened");});
+    });
+  }
+}
+
 // collects all the tabs in window and Formats the data for POST
 // calls apiPostAllTabs() for POST
 const saveAllTabs = () => {
@@ -172,10 +160,6 @@ const saveAllTabs = () => {
     console.log('creating new folder in saveAllTabs')
     const newFolder = {};
     newFolder.name = document.getElementById('create-folder').value;
-
-    // ------------- needs to obtain current user id ---------------
-                      // newFolder.user_id = 6; // currently hard coded
-    // -------------------------------------------------------------
 
     apiPost(newFolder, "new folder").then(data=>{
       folderId = data.folder.id
@@ -264,7 +248,7 @@ apiPost = (out_data, item) => {
     console.log("out data deets", out_data);
     let attachUrl = "";
     let body = {};
-    console.log("body", body)
+    console.log("body", body);
     // create tabs or folders?
     if(item === "new tab"){
       body = { tab: out_data };
@@ -302,19 +286,12 @@ apiPost = (out_data, item) => {
 getFolders=()=>{
   console.log("getting folders");
   let allFoldersData = apiFetch("folders.json");
-  const folderWrapper = document.getElementById("select-folders")
-  let optionsStr = ''
+  const folderWrapper = document.getElementById("select-folders");
+  let optionsStr = '';
   allFoldersData.then(data => {
     console.log(123456, data)
     data.forEach((folderData, index) => {
     //lists all folders from db
-      // let folderOption = document.createElement("option");
-      // folderOption.innerHTML = folderData.name
-
-      // folderOption.value = folderData.id;
-      // do not display the default folder
-      // if (folderData.id !== 1) document.getElementById("select-folders").appendChild(folderOption);
-
       // Aggy: simplify code by appending all the options to a string
       if (index === 0) {
         currentFolderId = folderData.id
