@@ -22,13 +22,7 @@
 
   // variables
     const active_tab_details = {};
-    // Defaults to 1, needs to be changed to unsaved tabs
-    // HARDCODED
-    // need extensive checking before removal
-    let currentFolderId = 1;
-    const defaultFolderId = 1;
-    // let user_id = user_id
-    // CHANGE THE ABOVE IDs
+    let currentFolderId;
 
   // flags for status checks
     let creatingFolder = false;
@@ -45,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
   generateTitleForm();          // Auto fills title of form to current titile
 
   // When "+new folder" is selected, show the form to create a folder
-
   const folderSelect = document.getElementById('select-folders');
   folderSelect.addEventListener('change', (folder)=>{ showNewFolderForm(folder); });
 
@@ -55,21 +48,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // const addTab = document.getElementById('add-tab-btn');
   const addTab = document.querySelector('.add-tab-btn');
   addTab.addEventListener('click', function() {
-
     chrome.tabs.query({currentWindow: true}, currentTabs => {
-
-      // currentTabs is an array of current open tabs. URL is in tab object
       console.log("current tabs", currentTabs);
 
       // If "+new folder" is selected and submitted, POST new folder
       // Then POST tab to new folder
       // Else POST tab to selected folder
-
       if(creatingFolder){
         console.log("creating folder: ", creatingFolder);
         const newFolder = {};
         newFolder.name = document.getElementById('create-folder').value;
-
         const confirmedNewFolder = apiPost(newFolder, "new folder");
 
         // --------------------DEBUG--------------------
