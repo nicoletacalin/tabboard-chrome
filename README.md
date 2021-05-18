@@ -65,7 +65,6 @@ Some refactoring needs to be done 🤓
 ## Acknowledgements
 - This application is developed by those amazing developers 🙌🏻: 
   - [Desmond](https://github.com/barrrricade), [Kevin](https://github.com/kkurcz), [Marshall](https://github.com/Marshall-Hao), [Nico](https://github.com/nicoletacalin) and [Xiway](https://github.com/XiwayB)
-- The login function was based on this nice and complete [tutorial](https://www.youtube.com/watch?v=H-anyDrYHyg)
 
 ## Contributions / Contact
 The chrome extension depends on the web application. The later is still in an early stage, if you would like to contribute to it, feel free to contact me first: [![Gmail Badge](https://img.shields.io/badge/xiway.banh-D14836?style=flat-square&logo=Gmail&logoColor=white&link=mailto:xiway.banh@gmail.com)](mailto:xiway.banh@gmail.com) 
